@@ -4,30 +4,6 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 import cv2
 
-class MainWindow(QWidget):
-    def __init__(self):
-        super(MainWindow, self).__init__()
-
-        self.VBL = QVBoxLayout()
-        self.FeedLabel = QLabel()
-        self.VBL.addWidget(self.FeedLabel)
-
-        self.CancelBTN = QPushButton("Cancel")
-        self.CancelBTN.clicked.connect(self.CancelFeed)
-        self.VBL.addWidget(self.CancelBTN)
-
-        self.Worker1 = Worker1()
-
-        self.Worker1.start()
-        self.Worker1.ImageUpdate.connect(self.ImageUpdateSlot)
-        self.setLayout(self.VBL)
-
-    def ImageUpdateSlot(self, Image):
-        self.FeedLabel.setPixmap(QPixmap.fromImage(Image))
-
-    def CancelFeed(self):
-        self.Worker1.stop()
-
 class Worker1(QThread):
     ImageUpdate = pyqtSignal(QImage)
     def run(self):
