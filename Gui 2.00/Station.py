@@ -1,11 +1,7 @@
-from PyQt5 import QtWidgets,QtGui,QtCore,Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow
-import sys
 from Telemetri import Ui_Form as telemetri
 from grafikler import Grafik
-from pushbuttons import Buttons
 import Thread
-from Gps import Gps
 from Model3D import Model
 from Map import Map
 from ADI import qfi_ADI
@@ -53,7 +49,6 @@ class Ui_MainWindow(QMainWindow):
 
         self.Right = QtWidgets.QWidget(self.Bottom)
         self.Right.setGeometry(QtCore.QRect(880, 0, 320, 480))
-        #self.Right.setStyleSheet("background-color:rgb(5, 107, 127)")
         self.Right.setObjectName("Right")
 
         self.Model=Model()
@@ -78,9 +73,10 @@ class Ui_MainWindow(QMainWindow):
         self.Yaw = QtWidgets.QLabel(self.Angles)
         self.Yaw.setObjectName("Yaw")
         self.Angles_Layout.addWidget(self.Yaw)
-        self.Roll.setText("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n""<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n""p, li { white-space: pre-wrap; }\n""</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n""<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600; color:#ffffff;\">Roll = 0°</span></p></body></html>")
-        self.Pitch.setText("<html><head/><body><p align=\"center\"><span style=\" font-weight:600; color:#ffffff;\">Pitch = 0°</span></p></body></html>")
-        self.Yaw.setText("<html><head/><body><p align=\"center\"><span style=\" font-weight:600; color:#ffffff;\">Yaw = 0°</span></p></body></html>")
+        self.Roll.setText("Roll=0°")
+        self.Pitch.setText("Pitch=0°")
+        self.Yaw.setText("Yaw=0°")
+        self.Angles.setStyleSheet("font-family: 'Lucida Console', 'Courier New', monospace; color:rgb(255,255,255); font-weight: 600;")
 
         self.adi = qfi_ADI(self)
         self.adi.resize(320, 240)
@@ -97,6 +93,7 @@ class Ui_MainWindow(QMainWindow):
         self.Data_Thread=Thread.Worker2()
         self.Data_Thread.start()
         self.Data_Thread.Telemetri_Update.connect(self.Telemetri_Update)
+        self.Data_Thread.Model_Update.connect(self.Model_Update)
         self.Telemetri.setObjectName("Telemetri")
 
         self.graphs=Grafik()
@@ -279,12 +276,14 @@ class Ui_MainWindow(QMainWindow):
         self.verticalLayout_2.setSpacing(0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
 
+        self.Red = "background-color:rgb(255, 0, 0);"
+        self.Green = "background-color:rgb(0, 255, 0);"
+
         self.Bekleme_Asaması = QtWidgets.QLabel(self.scrollAreaWidgetContents_2)
         self.Bekleme_Asaması.setObjectName("Bekleme_Asaması")
         self.verticalLayout_2.addWidget(self.Bekleme_Asaması)
 
         self.Yukselme_Asaması = QtWidgets.QLabel(self.scrollAreaWidgetContents_2)
-        #self.Yukselme_Asaması.setStyleSheet("background-color:rgb(255, 0, 0);")
         self.Yukselme_Asaması.setObjectName("Yukselme_Asaması")
         self.verticalLayout_2.addWidget(self.Yukselme_Asaması)
 
@@ -302,7 +301,7 @@ class Ui_MainWindow(QMainWindow):
 
         self.Aktif_Inıs_Ikıncı_Asama = QtWidgets.QLabel(self.scrollAreaWidgetContents_2)
         self.Aktif_Inıs_Ikıncı_Asama.setObjectName("Aktif_Inıs_Ikıncı_Asama")
-        self.Aktif_Inıs_Ikıncı_Asama.setStyleSheet("background-color:rgb(255, 0, 0);")
+        self.Aktif_Inıs_Ikıncı_Asama.setStyleSheet(self.Red)
         self.verticalLayout_2.addWidget(self.Aktif_Inıs_Ikıncı_Asama)
 
         self.Kurtarma_Asaması = QtWidgets.QLabel(self.scrollAreaWidgetContents_2)
@@ -344,24 +343,40 @@ class Ui_MainWindow(QMainWindow):
 #         self.RPM_Value.setAlignment(QtCore.Qt.AlignCenter)
 #         self.RPM_Value.setObjectName("RPM_Value")
         self.progressBar = QtWidgets.QProgressBar(self.Top)
-        self.progressBar.setGeometry(QtCore.QRect(930, 60, 241, 23))
-        self.progressBar.setStyleSheet("color:rgb(0, 0, 0);\n"
-"font: 7pt \"Arial Rounded MT Bold\";\n"
-"")
+        self.progressBar.setGeometry(QtCore.QRect(800, 70, 241, 23))
+        self.progressBar.setStyleSheet("color:rgb(0, 0, 0);\n""font: 7pt \"Arial Rounded MT Bold\";\n""")
         self.progressBar.setProperty("value", 23)
         self.progressBar.setAlignment(QtCore.Qt.AlignCenter)
         self.progressBar.setTextVisible(True)
         self.progressBar.setOrientation(QtCore.Qt.Horizontal)
         self.progressBar.setObjectName("progressBar")
+        self.Batarya_Container = QtWidgets.QWidget(self.Top)
+        self.Batarya_Container.setGeometry(QtCore.QRect(1100, 33, 141, 80))
+        self.Batarya_Container.setStyleSheet("#QProgressBar {\n""    border: 2px solid grey;\n""    border-radius: 5px;\n""}\n""\n""#QProgressBar::chunk {\n""    background-color: #05B8CC;\n""    width: 20px;\n""}")
+        self.Batarya_Container.setObjectName("Batarya_Container")
+        self.Batarya = QtWidgets.QProgressBar(self.Batarya_Container)
+        self.Batarya.setGeometry(QtCore.QRect(10, 10, 31, 51))
+        self.Batarya.setStyleSheet("#Batarya::chunk {\n""    background-color: rgb(255, 0, 4);\n""    height: 5px;\n""    margin: 0.5px;\n""}\n""#Batarya{\n""    border: 2px solid grey;\n""    border-color: rgb(255, 255, 255);\n""    text-align: center;\n""    background-color: rgb(255, 255, 255);\n""    border-radius: 5px;\n""}")
+        self.Batarya.setMaximum(100)
+        self.Batarya.setProperty("value", 25)
+        self.Batarya.setTextVisible(False)
+        self.Batarya.setOrientation(QtCore.Qt.Vertical)
+        self.Batarya.setObjectName("Batarya")
+        self.Batarya_Value = QtWidgets.QLabel(self.Batarya_Container)
+        self.Batarya_Value.setGeometry(QtCore.QRect(45, 42, 55, 16))
+        self.Batarya_Font = font
+        self.Batarya_Font.setBold(False)
+        self.Batarya_Font.setPointSize(8)
+        self.Batarya_Value.setFont(self.Batarya_Font)
+        self.Batarya_Value.setObjectName("Batarya_Value")
+        self.Batarya_Value.setText("%25")
         self.shadow3 = QtWidgets.QGraphicsDropShadowEffect()
         self.shadow3.setBlurRadius(15)
         self.Video_Aktarim = QtWidgets.QLabel(self.Top)
-        self.Video_Aktarim.setGeometry(QtCore.QRect(970, 19, 171, 31))
+        self.Video_Aktarim.setGeometry(QtCore.QRect(830, 24, 171, 31))
         self.Video_Aktarim.setGraphicsEffect(self.shadow3)
-        self.Video_Aktarim.setStyleSheet("color:rgb(0, 0, 0);\n"
-"font: 7pt \"Arial Rounded MT Bold\";\n"
-"background-color: rgb(255, 255, 255)\n"
-"")
+        self.Video_Aktarim.setStyleSheet(
+            "color:rgb(0, 0, 0);\n""font: 7pt \"Arial Rounded MT Bold\";\n""background-color: rgb(255, 255, 255)\n""")
         self.Video_Aktarim.setAlignment(QtCore.Qt.AlignCenter)
         self.Video_Aktarim.setObjectName("Video_Aktarim")
         MainWindow.setCentralWidget(self.centralwidget)
@@ -369,6 +384,8 @@ class Ui_MainWindow(QMainWindow):
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1200, 26))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
+
+
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -387,9 +404,18 @@ class Ui_MainWindow(QMainWindow):
         self.FeedLabel.setPixmap(QtGui.QPixmap.fromImage(Image))
 
     def Model_Update(self, data):
-        self.Model.mesh.rotate(angle=float(data[0])/14, x=1,y=0,z=0)
-        self.Model.mesh.rotate(angle=float(data[1])/14, x=0,y=1,z=0)
-        self.Model.mesh.rotate(angle=float(data[2])/1, x=0,y=0,z=1)
+        self.Model.view.removeItem(self.Model.mesh)
+        self.Model.Restore()
+        self.Model.view.addItem(self.Model.mesh)
+        self.Model.mesh.rotate(angle=float(data[0]), x=1, y=0, z=0)
+        self.Model.mesh.rotate(angle=float(data[1]), x=0, y=1, z=0)
+        self.Model.mesh.rotate(angle=float(data[2]), x=0, y=0, z=1)
+        self.Roll.setText(f"Roll={data[0]}°")
+        self.Pitch.setText(f"Pitch={data[1]}°")
+        self.Yaw.setText(f"Yaw={data[2]}°")
+        self.adi.setRoll(float(data[0]))
+        self.adi.setPitch(float(data[1]))
+        self.adi.update()
 
     def Graph_Update (self,Temp):
         pass
