@@ -323,26 +323,26 @@ class Ui_MainWindow(QMainWindow):
         self.Logo.setObjectName("Logo")
         self.shadow1 = QtWidgets.QGraphicsDropShadowEffect()
         self.shadow1.setBlurRadius(15)
-        self.RPM = QtWidgets.QLabel(self.Top)
-        self.RPM.setGeometry(QtCore.QRect(810, 5, 100, 35))
-        self.RPM.setStyleSheet("color:rgb(0, 0, 0);\n"
-"font: 9pt \"Arial Rounded MT Bold\";\n"
-"background-color:rgb(255, 255, 255);\n"
-"text-align:center;")
-        self.RPM.setAlignment(QtCore.Qt.AlignCenter)
-        self.RPM.setObjectName("label")
-        self.RPM.setGraphicsEffect(self.shadow1)
-        self.shadow2 = QtWidgets.QGraphicsDropShadowEffect()
-        self.shadow2.setBlurRadius(15)
-        self.RPM_Value = QtWidgets.QLabel(self.Top)
-        self.RPM_Value.setGeometry(QtCore.QRect(810, 60, 100, 35))
-        self.RPM_Value.setGraphicsEffect(self.shadow2)
-        self.RPM_Value.setStyleSheet("color:rgb(255, 0, 0);\n"
-"font: 9pt \"Arial Rounded MT Bold\";\n"
-"background-color: rgb(255, 255, 255);\n"
-"text-align:center;")
-        self.RPM_Value.setAlignment(QtCore.Qt.AlignCenter)
-        self.RPM_Value.setObjectName("RPM_Value")
+#         self.RPM = QtWidgets.QLabel(self.Top)
+#         self.RPM.setGeometry(QtCore.QRect(810, 5, 100, 35))
+#         self.RPM.setStyleSheet("color:rgb(0, 0, 0);\n"
+# "font: 9pt \"Arial Rounded MT Bold\";\n"
+# "background-color:rgb(255, 255, 255);\n"
+# "text-align:center;")
+#         self.RPM.setAlignment(QtCore.Qt.AlignCenter)
+#         self.RPM.setObjectName("label")
+#         self.RPM.setGraphicsEffect(self.shadow1)
+#         self.shadow2 = QtWidgets.QGraphicsDropShadowEffect()
+#         self.shadow2.setBlurRadius(15)
+#         self.RPM_Value = QtWidgets.QLabel(self.Top)
+#         self.RPM_Value.setGeometry(QtCore.QRect(810, 60, 100, 35))
+#         self.RPM_Value.setGraphicsEffect(self.shadow2)
+#         self.RPM_Value.setStyleSheet("color:rgb(255, 0, 0);\n"
+# "font: 9pt \"Arial Rounded MT Bold\";\n"
+# "background-color: rgb(255, 255, 255);\n"
+# "text-align:center;")
+#         self.RPM_Value.setAlignment(QtCore.Qt.AlignCenter)
+#         self.RPM_Value.setObjectName("RPM_Value")
         self.progressBar = QtWidgets.QProgressBar(self.Top)
         self.progressBar.setGeometry(QtCore.QRect(930, 60, 241, 23))
         self.progressBar.setStyleSheet("color:rgb(0, 0, 0);\n"
@@ -419,8 +419,8 @@ class Ui_MainWindow(QMainWindow):
         self.Askıda_Kalma_Asaması.setText(_translate("MainWindow", "Askıda Kalma Asaması"))
         self.Aktif_Inıs_Ikıncı_Asama.setText(_translate("MainWindow", "Aktif İniş İkinci Asama"))
         self.Kurtarma_Asaması.setText(_translate("MainWindow", "Kurtarma Asaması"))
-        self.RPM.setText(_translate("MainWindow", "RPM"))
-        self.RPM_Value.setText(_translate("MainWindow", "10500"))
+#       self.RPM.setText(_translate("MainWindow", "RPM"))
+#       self.RPM_Value.setText(_translate("MainWindow", "10500"))
         self.Video_Aktarim.setText(_translate("MainWindow", "VİDEO AKTARIM DURUMU"))
 import Source_rc
 
