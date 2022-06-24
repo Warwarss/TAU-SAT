@@ -8,8 +8,10 @@ from PyQt5 import QtCore
 class Map(object):
     def SetupUi(self,Window):
         self.layout = QVBoxLayout()
+        self.longtitude=41
+        self.latitude=29
         #Window.setLayout(self.layout)
-        coordinate = (41, 29)
+        coordinate = (self.longtitude, self.latitude)
         m = folium.Map(
         	tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
         	zoom_start=13,
@@ -19,6 +21,7 @@ class Map(object):
         )
         # save map data to data object
         data = io.BytesIO()
+        folium.Marker([self.longtitude, self.latitude]).add_to(m)
         m.save(data, close_file=False)
         self.webView = QWebEngineView(Window)
         self.webView.setHtml(data.getvalue().decode())
