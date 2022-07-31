@@ -1,0 +1,13 @@
+<RCC>
+  <qresource prefix="newPrefix">
+    <file>Logo ve Afişler/LogoSvg.svg</file>
+    <file>Logo ve Afişler/Boş Arkaplan/TAU2b.png</file>
+    <file>Logo ve Afişler/Boş Arkaplan/TAU3b.png</file>
+    <file>Logo ve Afişler/Boş Arkaplan/TAU4b.png</file>
+    <file>Logo ve Afişler/TAU1.png</file>
+    <file>Logo ve Afişler/TAU2.png</file>
+    <file>Logo ve Afişler/TAU3.png</file>
+    <file>Logo ve Afişler/TAU4.png</file>
+    <file>Logo ve Afişler/TAU-SAT Model Uydu Takımı Logo.png</file>
+  </qresource>
+</RCC>
