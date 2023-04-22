@@ -1,0 +1,1 @@
+dictironary = {for _ in range(37) : "5"}
